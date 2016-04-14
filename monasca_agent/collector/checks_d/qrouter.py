@@ -27,7 +27,7 @@ class QrouterPlugin(AgentCheck):
                 if PREFIX_ROUTER in ns:
                     qrouters.append(ns)
 
-        #Extracting router from dhcps namespaces
+        # Listing routers from neutron
         from neutronclient.v2_0 import client
         nu = client.Client(username=self.init_config.get('admin_user'),
                            password=self.init_config.get('admin_password'),
@@ -39,7 +39,10 @@ class QrouterPlugin(AgentCheck):
         # Making a dictionary of routers with their corresponding tenant ids
         for router in routers:
             router_tenant[PREFIX_ROUTER + router['id']] = router['tenant_id']
-            
+        
+        # Add iptable rule forward? in every router
+        # get counters as in iptable driver class
+        # should give me overall bandwidth
             print(router_tenant[qrouters[0]])
 
     def check(self, instance=None):
@@ -75,7 +78,8 @@ def netns_discovery():
     # Making a dictionary of routers with their corresponding tenant ids
     for router in routers:
         router_tenant[PREFIX_ROUTER + router['id']] = router['tenant_id']
- 
+    
+     
     print(router_tenant[qrouters[0]])
     print(router_tenant[qrouters[1]])
         
