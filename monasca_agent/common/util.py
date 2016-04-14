@@ -500,7 +500,7 @@ def get_parsed_args():
         options, args = optparse.Values({'clean': False}), []
     return options, args
 
-
+## something like this for my netmon subdirectory
 def load_check_directory():
     """Return the initialized checks from checks_d, and a mapping of checks that failed to
     initialize. Only checks that have a configuration

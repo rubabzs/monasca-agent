@@ -86,6 +86,9 @@ class CollectorDaemon(monasca_agent.common.daemon.Daemon):
         # Save the agent start-up stats.
         monasca_agent.common.check_status.CollectorStatus().persist()
 
+
+## ----->>> change here Load the checks_d/netchecks_d checks
+
         # Load the checks_d checks
         checksd = util.load_check_directory()
 
@@ -96,6 +99,9 @@ class CollectorDaemon(monasca_agent.common.daemon.Daemon):
         # Initialize the auto-restarter
         self.restart_interval = int(config.get('restart_interval', RESTART_INTERVAL))
         self.agent_start = time.time()
+
+
+##-------Main collection process
 
         # Run the main loop.
         while self.run_forever:
@@ -142,6 +148,7 @@ class CollectorDaemon(monasca_agent.common.daemon.Daemon):
                     log.info("Collection took {0} which is as long or longer then the configured collection frequency "
                              "of {1}. Starting collection again without waiting in result.".format(collection_time,
                                                                                                    check_frequency))
+#--------- forever loop ends 
 
         # Now clean-up.
         try:
@@ -261,8 +268,8 @@ def main():
             basename = os.path.basename(conf_path)
             try:
                 config.check_yaml(conf_path)
-            except Exception as e:
-                all_valid = False
+            except Exception as e: 
+               all_valid = False
                 print("%s contains errors:\n    %s" % (basename, e))
             else:
                 print("%s is valid" % basename)

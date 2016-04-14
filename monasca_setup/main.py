@@ -10,11 +10,10 @@ import pwd
 import socket
 import subprocess
 import sys
-
 import agent_config
 import monasca_setup.utils as utils
 from monasca_setup.utils import write_template
-from service.detection import detect_init
+from monasca_setup.service.detection import detect_init
 
 log = logging.getLogger(__name__)
 
@@ -39,7 +38,7 @@ def main(argv=None):
 
     # Detect and if possibly enable the agent service
     agent_service = detect_init(PREFIX_DIR, args.config_dir, args.log_dir, args.template_dir, username=args.user)
-
+    print(PREFIX_DIR)
     # Skip base setup if only installing plugins or running specific detection
     # plugins
     if not args.install_plugins_only and args.detection_plugins is None:
